@@ -1,0 +1,23 @@
+-- SQLite
+CREATE TABLE Clients (
+    ClientID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL,
+    Email TEXT UNIQUE NOT NULL,
+    Phone TEXT NOT NULL
+);
+
+CREATE TABLE relations(
+    idRelation INTEGER PRIMARY KEY AUTOINCREMENT,
+    parrainID INTEGER NOT NULL,
+    filleulID INTEGER NOT NULL,
+    FOREIGN KEY (parrainID) REFERENCES Clients(ClientID),
+    FOREIGN KEY (filleulID) REFERENCES Clients(ClientID)
+);
+
+CREATE TABLE Achats(
+    idAchat INTEGER PRIMARY KEY AUTOINCREMENT,
+    ClientID INTEGER NOT NULL,
+    DateAchat DATE NOT NULL,
+    Montant REAL NOT NULL,
+    FOREIGN KEY (ClientID) REFERENCES Clients(ClientID)
+);
