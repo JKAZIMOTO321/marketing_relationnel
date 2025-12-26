@@ -25,3 +25,10 @@ CREATE TABLE Achats (
     Montant REAL NOT NULL CHECK (Montant > 0),
     FOREIGN KEY (ClientID) REFERENCES Clients(ClientID)
 );
+
+CREATE VIEW ClientsPlusRentable AS 
+SELECT Clients.Name, SUM(Achats.Montant) AS TotalAchats
+FROM Clients
+JOIN Achats on Clients.ClientID = Achats.ClientID
+GROUP BY Clients.ClientID
+ORDER BY TotalAChats DESC;
