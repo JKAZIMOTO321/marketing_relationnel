@@ -3,21 +3,25 @@ CREATE TABLE Clients (
     ClientID INTEGER PRIMARY KEY AUTOINCREMENT,
     Name TEXT NOT NULL,
     Email TEXT UNIQUE NOT NULL,
-    Phone TEXT NOT NULL
+    Phone TEXT UNIQUE,
+    DateInscription DATE DEFAULT CURRENT_DATE,
+    Statut TEXT DEFAULT 'ACTIF'
 );
 
-CREATE TABLE relations(
+CREATE TABLE relations (
     idRelation INTEGER PRIMARY KEY AUTOINCREMENT,
-    parrainID INTEGER NOT NULL,
-    filleulID INTEGER NOT NULL,
+    parrainID INTEGER,
+    filleulID INTEGER NOT NULL UNIQUE,
+    DateRelation DATE DEFAULT CURRENT_DATE,
+    CHECK (parrainID IS NULL OR parrainID != filleulID),
     FOREIGN KEY (parrainID) REFERENCES Clients(ClientID),
     FOREIGN KEY (filleulID) REFERENCES Clients(ClientID)
 );
 
-CREATE TABLE Achats(
+CREATE TABLE Achats (
     idAchat INTEGER PRIMARY KEY AUTOINCREMENT,
     ClientID INTEGER NOT NULL,
-    DateAchat DATE NOT NULL,
-    Montant REAL NOT NULL,
+    DateAchat DATE DEFAULT CURRENT_DATE,
+    Montant REAL NOT NULL CHECK (Montant > 0),
     FOREIGN KEY (ClientID) REFERENCES Clients(ClientID)
 );
