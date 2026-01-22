@@ -1,0 +1,3 @@
+create database if not exists DB_Marketing_Relationnel_Algo2;
+
+use DB_Marketing_Relationnel_Algo2
