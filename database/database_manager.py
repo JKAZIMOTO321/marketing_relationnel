@@ -4,11 +4,14 @@ import mysql.connector as connector
 
 load_dotenv()
 
-connexion = connector.connect(
-    host=os.getenv("DB_Host"),
-    user=os.getenv("DB_user"),
-    password = os.getenv("DB_PassWord"),
-    database = os.getenv("DB_Name"),)
+class DataBaseManager():
+    def __init__(self):
+        self.configuration={
+            'host':os.getenv("DB_Host"),
+            'user':os.getenv("DB_user"),
+            'password': os.getenv("DB_PassWord"),
+            'database' : os.getenv("DB_Name")
+        }
 
-print("Connecté à MySQL :", connexion.is_connected())
-connexion.close()
+    def connecter(self):
+        return connector.connect(**self.configuration)
