@@ -4,7 +4,7 @@ import mysql.connector as connector
 
 load_dotenv()
 
-class DataBaseManager():
+class DatabaseManager():
     def __init__(self):
         self.configuration={
             'host':os.getenv("DB_Host"),
@@ -14,4 +14,21 @@ class DataBaseManager():
         }
 
     def connecter(self):
-        return connector.connect(**self.configuration)
+        try:
+            return connector.connect(**self.configuration)
+        except:
+            print(f"Echec de connexion a la base des donnees :{Exception}")
+            return None
+    
+    def get_clients(self):
+        conn = self.connecter()
+        if conn:
+            cursor = conn.cursor(dictionary=True)
+            cursor.execute("SELECT * FROM Clients")
+            result = cursor.fetchall()
+            conn.close()
+            return result
+        
+    def add_client(self):
+        pass
+
