@@ -1,3 +1,40 @@
 create database if not exists DB_Marketing_Relationnel_Algo2;
 
-use DB_Marketing_Relationnel_Algo2
+use DB_Marketing_Relationnel_Algo2;
+CREATE TABLE IF NOT EXISTS Clients (
+    ClientID INT AUTO_INCREMENT PRIMARY KEY,
+    ClientName VARCHAR(100) NOT NULL,
+    Email VARCHAR(150) NOT NULL UNIQUE,
+    Phone VARCHAR(20) UNIQUE,
+    DateInscription datetime DEFAULT current_timestamp,
+    Statut VARCHAR(20) DEFAULT 'ACTIF'
+);
+
+-- La table Relations
+CREATE TABLE IF NOT EXISTS Relations (
+    idRelation INT AUTO_INCREMENT PRIMARY KEY,
+    parrainID INT NULL,
+    filleulID INT NOT NULL UNIQUE,
+    DateRelation DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_parrain
+        FOREIGN KEY (parrainID) REFERENCES Clients(ClientID)
+        ON DELETE SET NULL,
+
+    CONSTRAINT fk_filleul
+        FOREIGN KEY (filleulID) REFERENCES Clients(ClientID)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Trigger pour la logique que un client ne peut pas etre parrain de lui meme
+CREATE TRIGGER trg_check_parrain_filleul
+BEFORE INSERT ON Relations
+FOR EACH ROW
+BEGIN
+    IF NEW.parrainID = NEW.filleulID THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Un client ne peut pas être son propre parrain';
+    END IF;
+END;
+
+-- Creation de la table clients
