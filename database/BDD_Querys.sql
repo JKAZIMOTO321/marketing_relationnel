@@ -56,3 +56,13 @@ BEGIN
         SET MESSAGE_TEXT = 'Le montant doit être supérieur à 0';
     END IF;
 END;
+
+-- La vue des clients les plus rentables
+CREATE OR REPLACE VIEW ClientsPlusRentable AS
+SELECT 
+    Clients.ClientName, 
+    SUM(Achats.Montant) AS TotalAchats
+FROM Clients
+JOIN Achats ON Clients.ClientID = Achats.ClientID
+GROUP BY Clients.ClientID, Clients.ClientName
+ORDER BY TotalAchats DESC;
