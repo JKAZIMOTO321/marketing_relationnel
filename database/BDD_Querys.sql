@@ -37,4 +37,22 @@ BEGIN
     END IF;
 END;
 
--- Creation de la table clients
+-- Creation de la table achats
+CREATE TABLE IF NOT EXISTS Achats (
+    idAchat INT AUTO_INCREMENT PRIMARY KEY,
+    ClientID INT NOT NULL,
+    DateAchat datetime DEFAULT current_timestamp,
+    Montant DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (ClientID) REFERENCES Clients(ClientID)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+-- trigger pour verifier si le montant est superieur a 0 
+CREATE TRIGGER trg_check_montant_achat
+BEFORE INSERT ON Achats
+FOR EACH ROW
+BEGIN
+    IF NEW.Montant <= 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Le montant doit être supérieur à 0';
+    END IF;
+END;
