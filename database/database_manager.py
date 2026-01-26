@@ -54,5 +54,6 @@ class DatabaseManager():
                 print("Ajouts reussi")
                 self.fermer_connexion()
             except Exception as e:
+                self.connexion.rollback()
                 print(f"Erreur de l'ajout du client {e}")
 
