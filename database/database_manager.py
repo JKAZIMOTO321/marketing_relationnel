@@ -57,3 +57,16 @@ class DatabaseManager():
                 self.connexion.rollback()
                 print(f"Erreur de l'ajout du client {e}")
 
+    def get_clients_plus_rentables(self):
+        self.connexion = self.connecter()
+        if self.connexion:
+            try:
+                cursor = self.connexion.cursor()
+                requette = "SELECT * FROM ClientsPlusRentable;"
+                cursor.execute(requette)
+                resultats = cursor.fetchall()
+            except Exception as e:
+                print(f"Erreur lors de la recherche {e}")
+                resultats = None
+        return resultats
+
