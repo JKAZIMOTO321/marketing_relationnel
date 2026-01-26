@@ -12,13 +12,15 @@ class DatabaseManager():
             'password': os.getenv("DB_PassWord"),
             'database' : os.getenv("DB_Name")
         }
+        self.connexion = None
 
     def connecter(self):
-        try:
-            return connector.connect(**self.configuration)
-        except:
-            print(f"Echec de connexion a la base des donnees :{Exception}")
-            return None
+        if self.connexion is None or not self.connexion.is_connected():
+            try:
+                self.connexion = connector.connect(**self.configuration)
+            except Exception as e:
+                print(f"Echec de connexion a la base des donnees :{e}")
+        return self.connexion
     
     def get_clients(self):
         conn = self.connecter()
@@ -32,3 +34,5 @@ class DatabaseManager():
     def add_client(self):
         pass
 
+db = DatabaseManager()
+db.connecter()
