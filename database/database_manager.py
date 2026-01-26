@@ -37,6 +37,22 @@ class DatabaseManager():
             conn.close()
             return result
         
-    def add_client(self, ClientName, Email,Phone,DateInscription, idParrain=None):
-        pass
+    def add_client(self, ClientName, Email,Phone, parrainID=None):
+        self.connexion = self.connecter()
+        if self.connexion:
+            try:
+                cursor = self.connexion.cursor(dictionary=True)
+                requete = "INSERT INTO Clients (ClientName, Email, Phone) VALUES (%s,%s,%s);"
+                cursor.execute(requete,(ClientName, Email, Phone))
+                # recuperation l'id du client pour pouvoir creer la relation si il y en a
+                client_id = cursor.lastrowid()
+                # ajout de la reltion si il y en a
+                if parrainID is not None:
+                    requette = "INSERT INTO Relations (parrainID,filleulID) VALUES (%s, %s,);"
+                    cursor.execute(requete, (parrainID,client_id))
+                self.connexion.commit()
+                print("Ajouts reussi")
+                self.fermer_connexion()
+            except Exception as e:
+                print(f"Erreur de l'ajout du client {e}")
 
