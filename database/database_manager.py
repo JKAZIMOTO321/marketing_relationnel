@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
 import mysql.connector as connector
+import datetime
 
 load_dotenv()
 
@@ -22,6 +23,11 @@ class DatabaseManager():
                 print(f"Echec de connexion a la base des donnees :{e}")
         return self.connexion
     
+    def fermer_connexion(self):
+        if self.connexion and self.connexion.is_connected():
+            self.connexion.close()
+            
+    
     def get_clients(self):
         conn = self.connecter()
         if conn:
@@ -31,8 +37,6 @@ class DatabaseManager():
             conn.close()
             return result
         
-    def add_client(self):
+    def add_client(self, ClientName, Email,Phone,DateInscription, idParrain=None):
         pass
 
-db = DatabaseManager()
-db.connecter()
