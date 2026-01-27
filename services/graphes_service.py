@@ -3,4 +3,10 @@ class GraphService:
         self.relations = relations
         self.achats = achats
         self.graphe = {}
-        
+    
+    def construireGraphe(self):
+        for relation in self.relations:
+            return
+        pass
+
+    
