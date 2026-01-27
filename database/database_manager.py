@@ -20,12 +20,13 @@ class DatabaseManager():
             try:
                 self.connexion = connector.connect(**self.configuration)
             except Exception as e:
-                print(f"Echec de connexion a la base des donnees :{e}")
+                print(f"Echec de connexion a la base des donnees: {e}")
         return self.connexion
     
     def fermer_connexion(self):
         if self.connexion and self.connexion.is_connected():
             self.connexion.close()
+
             
     
     def get_clients(self):
@@ -69,4 +70,8 @@ class DatabaseManager():
                 print(f"Erreur lors de la recherche {e}")
                 resultats = None
         return resultats
+    
+    def get_relations(self):
+        pass
+        
 
