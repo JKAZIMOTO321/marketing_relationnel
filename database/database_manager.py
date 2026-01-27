@@ -37,6 +37,18 @@ class DatabaseManager():
             print(f"Une erreur est survenu : {e}")
         finally:
             self.fermer_connexion() 
+
+    def insert_update_delete(self, query, params=None):
+        self.connexion = self.connecter()
+        try:
+            cursor = self.connexion.cursor()
+            cursor.execute(query, params or ())
+            self.connexion.commit()
+            self.connexion.close()
+        except Exception as e:
+            print(f"Erreur {e}")
+        finally:
+            self.fermer_connexion()
     
     def get_clients(self):
         requete = "SELECT * FROM Clients"
@@ -46,7 +58,7 @@ class DatabaseManager():
         self.connexion = self.connecter()
         if self.connexion:
             try:
-                cursor = self.connexion.cursor(dictionary=True)
+                cursor = self.connexion.cursor()
                 requete = "INSERT INTO Clients (ClientName, Email, Phone) VALUES (%s,%s,%s);"
                 cursor.execute(requete,(ClientName, Email, Phone))
                 # recuperation l'id du client pour pouvoir creer la relation si il y en a
