@@ -27,16 +27,20 @@ class DatabaseManager():
         if self.connexion and self.connexion.is_connected():
             self.connexion.close()
 
-            
+    def requetes_select(self, requette, params=None):
+        self.connexion = self.connecter()
+        try:
+            cursor = self.connexion.cursor(dictionary=True)
+            cursor.execute(requette, params or ())
+            resultats = cursor.fetchall()
+        except Exception as e:
+            print(f"Une erreur est survenu : {e}")
+        finally:
+            self.fermer_connexion() 
     
     def get_clients(self):
-        conn = self.connecter()
-        if conn:
-            cursor = conn.cursor(dictionary=True)
-            cursor.execute("SELECT * FROM Clients")
-            result = cursor.fetchall()
-            conn.close()
-            return result
+        requete = "SELECT * FROM Clients"
+        return self.requetes_select(requette=requete)
         
     def add_client(self, ClientName, Email,Phone, parrainID=None):
         self.connexion = self.connecter()
@@ -59,19 +63,11 @@ class DatabaseManager():
                 print(f"Erreur de l'ajout du client {e}")
 
     def get_clients_plus_rentables(self):
-        self.connexion = self.connecter()
-        if self.connexion:
-            try:
-                cursor = self.connexion.cursor()
-                requette = "SELECT * FROM ClientsPlusRentable;"
-                cursor.execute(requette)
-                resultats = cursor.fetchall()
-            except Exception as e:
-                print(f"Erreur lors de la recherche {e}")
-                resultats = None
-        return resultats
+        requette = "SELECT * FROM ClientsPlusRentable;"
+        return self.requetes_select(requette=requette)
     
     def get_relations(self):
-        pass
+        requette = "SELECT parrainID,filleulID FROM Relations;"
+        return self.requetes_select(requette=requette)
         
 
