@@ -60,7 +60,7 @@ class DatabaseManager():
     def add_client(self, ClientName, Email,Phone, parrainID=None):
             try:
                 requete = "INSERT INTO Clients (ClientName, Email, Phone) VALUES (%s,%s,%s);"
-                # recuperation l'id du client pour pouvoir creer la relation si il y en a
+                #inserer le client tout en recuperant son id pour la creation de la relation
                 client_id = self.insert_update_delete(query=requete,params=(ClientName, Email, Phone),returnLastId=True)
                 # ajout de la reltion si il y en a
                 if parrainID is not None:
