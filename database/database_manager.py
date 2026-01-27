@@ -58,23 +58,15 @@ class DatabaseManager():
         return self.requetes_select(requette=requete)
         
     def add_client(self, ClientName, Email,Phone, parrainID=None):
-        self.connexion = self.connecter()
-        if self.connexion:
             try:
-                cursor = self.connexion.cursor()
                 requete = "INSERT INTO Clients (ClientName, Email, Phone) VALUES (%s,%s,%s);"
-                cursor.execute(requete,(ClientName, Email, Phone))
                 # recuperation l'id du client pour pouvoir creer la relation si il y en a
-                client_id = cursor.lastrowid()
+                client_id = self.insert_update_delete(query=requete,params=(ClientName, Email, Phone),returnLastId=True)
                 # ajout de la reltion si il y en a
                 if parrainID is not None:
                     requette = "INSERT INTO Relations (parrainID,filleulID) VALUES (%s, %s,);"
-                    cursor.execute(requete, (parrainID,client_id))
-                self.connexion.commit()
-                print("Ajouts reussi")
-                self.fermer_connexion()
+                    self.insert_update_delete(requette, (parrainID,client_id))
             except Exception as e:
-                self.connexion.rollback()
                 print(f"Erreur de l'ajout du client {e}")
 
     def get_clients_plus_rentables(self):
