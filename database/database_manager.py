@@ -38,14 +38,17 @@ class DatabaseManager():
         finally:
             self.fermer_connexion() 
 
-    def insert_update_delete(self, query, params=None):
+    def insert_update_delete(self, query, params=None, returnLastId=False):
         self.connexion = self.connecter()
         try:
             cursor = self.connexion.cursor()
             cursor.execute(query, params or ())
             self.connexion.commit()
             self.connexion.close()
+            if returnLastId:
+                return cursor.lastrowid()
         except Exception as e:
+            self.connexion.rollback()
             print(f"Erreur {e}")
         finally:
             self.fermer_connexion()
