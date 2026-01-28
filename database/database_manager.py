@@ -57,12 +57,11 @@ class DatabaseManager():
             if cursor:
                 cursor.close()
             self.fermer_connexion()
-    
-    def get_clients(self):
-        requete = "select * from Clients;"
-        resultat = self.requetes_select(requette=requete)
-        return resultat
-        
+
+    def add_achat(self, clientID, montant):
+        query = "INSERT INTO Achats (ClientID, Montant) VALUES (%s, %s);"
+        self.insert_update_delete(query=query,params=(clientID,montant))
+
     def add_client(self, ClientName, Email,Phone, parrainID=None):
             try:
                 requete = "INSERT INTO Clients (ClientName, Email, Phone) VALUES (%s,%s,%s);"
@@ -81,6 +80,11 @@ class DatabaseManager():
             except Exception as e:
                 print(f"Erreur de l'ajout du client {e}")
 
+    def get_clients(self):
+        requete = "select * from Clients;"
+        resultat = self.requetes_select(requette=requete)
+        return resultat
+    
     def get_clients_plus_rentables(self):
         requette = "SELECT * FROM ClientsPlusRentable;"
         return self.requetes_select(requette=requette)
@@ -100,3 +104,4 @@ class DatabaseManager():
 # clients = db.get_clients()
 # relations = db.get_relations()
 # print(clients); print(relations)
+# db.add_achat(3,500)
