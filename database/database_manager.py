@@ -110,13 +110,31 @@ class DatabaseManager():
         relations = self.get_relations()
         achats_totaux = self.get_tot_achats()
         graphe = {}
-        
+
+        for relation in relations:
+            parrain = relation["parrainID"]
+            filleul = relation["filleulID"]
+            total = achats_totaux.get(filleul,0)
+            poids = total*taux_direct
+            # Ajout du parrain dans le graphe s'il n'y est pas
+            if parrain not in graphe:
+                graphe[parrain]=[]
+            graphe[parrain].append((filleul, poids))
+
+            # vu que le filleul doit etre aussi un sommet
+            if filleul not in graphe:
+                graphe[filleul] = []
+        return graphe
+            
+
         
 
 db = DatabaseManager()
 # db.add_client(ClientName="Aaron Faradja",Email="aaronfaradja@gmail.com",Phone="+243981399690",parrainID=6)
 # clients = db.get_clients()
-relations = db.get_relations()
-print(relations)
+# relations = db.get_relations()
+# print(relations)
 # db.add_achat(3,500)
 # print(db.get_tot_achats())
+graphe = db.construire_graphe()
+print(graphe)
