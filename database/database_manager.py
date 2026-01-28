@@ -94,14 +94,23 @@ class DatabaseManager():
         resultats = self.requetes_select(requette=query)
         return resultats
     
+    def get_tot_achats(self):
+        query = "SELECT ClientID, SUM(Montant) AS total FROM Achats GROUP BY ClientID;"
+        resultat = self.requetes_select(requette=query)
+        achats_totaux = {}
+        for ligne in resultat:
+            achats_totaux[ligne["ClientID"]]=float(ligne["total"])
+        return achats_totaux
+    
     def get_tot_achat_par_client(self):
         query = "SELECT ClientID, SUM(Montant) AS total FROM Achats GROUP BY ClientID;"
         return self.requetes_select(requette=query)
         
 
-# db = DatabaseManager()
+db = DatabaseManager()
 # db.add_client(ClientName="Aaron Faradja",Email="aaronfaradja@gmail.com",Phone="+243981399690",parrainID=6)
 # clients = db.get_clients()
 # relations = db.get_relations()
 # print(clients); print(relations)
 # db.add_achat(3,500)
+print(db.get_tot_achats())
