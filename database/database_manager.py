@@ -105,12 +105,18 @@ class DatabaseManager():
     def get_tot_achat_par_client(self):
         query = "SELECT ClientID, SUM(Montant) AS total FROM Achats GROUP BY ClientID;"
         return self.requetes_select(requette=query)
+    
+    def construire_graphe(self, taux_direct=0.05):
+        relations = self.get_relations()
+        achats_totaux = self.get_tot_achats()
+        graphe = {}
+        
         
 
 db = DatabaseManager()
 # db.add_client(ClientName="Aaron Faradja",Email="aaronfaradja@gmail.com",Phone="+243981399690",parrainID=6)
 # clients = db.get_clients()
-# relations = db.get_relations()
-# print(clients); print(relations)
+relations = db.get_relations()
+print(relations)
 # db.add_achat(3,500)
-print(db.get_tot_achats())
+# print(db.get_tot_achats())
