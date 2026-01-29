@@ -2,10 +2,11 @@ from database import DatabaseManager as db
 class GraphService:
     def __init__(self):
         self.relations = db.get_relations()
-        self.achats = db.get_tot_achats
-        self.graphe = {}
+        self.achats = db.get_tot_achats()
+        self.graphe = self.construire_graphe()
     
     def construire_graphe(self, taux_direct=0.05):
+        graphe = {}
         for relation in self.relations:
             parrain = relation["parrainID"]
             filleul = relation["filleulID"]
@@ -13,13 +14,13 @@ class GraphService:
             poids = total*taux_direct
             # Ajout du parrain dans le graphe s'il n'y est pas
             if parrain not in self.graphe:
-                self.graphe[parrain]=[]
+                graphe[parrain]=[]
             
-            self.graphe[parrain].append((filleul, poids))
+            graphe[parrain].append((filleul, poids))
 
             # vu que le filleul doit etre aussi un sommet
-            if filleul not in self.graphe:
-                self.graphe[filleul] = []
-        return self.graphe
+            if filleul not in graphe:
+                graphe[filleul] = []
+        return graphe
 
     
