@@ -25,4 +25,15 @@ class CommissionService:
                     visited
                 )
         return commission
+    
+    def get_commission_total(self, parrainID):
+        visited = set()
+        total = self.dfs_commission(
+            graphe=self.graphe,
+            achats_totaux=self.achats_totaux,
+            client_courant=parrainID,
+            niveau=1,
+            visited=visited
+        )
+        return total
 
