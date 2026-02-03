@@ -1,4 +1,4 @@
-from graphes_service import GraphService
+from services import GraphService
 
 class CommissionService:
     def __init__(self):
@@ -36,4 +36,3 @@ class CommissionService:
             visited=visited
         )
         return total
-
