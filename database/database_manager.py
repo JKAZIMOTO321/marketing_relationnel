@@ -62,6 +62,10 @@ class DatabaseManager():
         query = "INSERT INTO Achats (ClientID, Montant) VALUES (%s, %s);"
         self.insert_update_delete(query=query,params=(clientID,montant))
 
+    def add_relation(self, parrainID, filleulID):
+        query = "INSERT INTO Relations (parrainID, filleulID) VALUES (%s, %s);"
+        self.insert_update_delete(query=query, params=(parrainID, filleulID))
+
     def add_client(self, ClientName, Email,Phone, parrainID=None):
             try:
                 requete = "INSERT INTO Clients (ClientName, Email, Phone) VALUES (%s,%s,%s);"
