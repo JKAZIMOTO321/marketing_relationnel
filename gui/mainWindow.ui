@@ -23,6 +23,30 @@
      <height>24</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuAcceuil">
+    <property name="title">
+     <string>Graphes</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuClients">
+    <property name="title">
+     <string>Clients</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuRelations">
+    <property name="title">
+     <string>Relations</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuAchats">
+    <property name="title">
+     <string>Achats</string>
+    </property>
+   </widget>
+   <addaction name="menuAcceuil"/>
+   <addaction name="menuClients"/>
+   <addaction name="menuRelations"/>
+   <addaction name="menuAchats"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
