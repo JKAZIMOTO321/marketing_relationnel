@@ -13,7 +13,16 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget">
+      <widget class="QWidget" name="page"/>
+      <widget class="QWidget" name="page_2"/>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -23,30 +32,12 @@
      <height>24</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuAcceuil">
+   <widget class="QMenu" name="menuGraphes">
     <property name="title">
      <string>Graphes</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuClients">
-    <property name="title">
-     <string>Clients</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuRelations">
-    <property name="title">
-     <string>Relations</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuAchats">
-    <property name="title">
-     <string>Achats</string>
-    </property>
-   </widget>
-   <addaction name="menuAcceuil"/>
-   <addaction name="menuClients"/>
-   <addaction name="menuRelations"/>
-   <addaction name="menuAchats"/>
+   <addaction name="menuGraphes"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
