@@ -231,7 +231,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit_7"/>
+       <widget class="QLineEdit" name="lineEdit_ModifNom"/>
       </item>
      </layout>
     </item>
@@ -245,7 +245,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit_5"/>
+       <widget class="QLineEdit" name="lineEdit_ModEmail"/>
       </item>
      </layout>
     </item>
@@ -259,7 +259,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit_6"/>
+       <widget class="QLineEdit" name="lineEdit_ModTel"/>
       </item>
      </layout>
     </item>
@@ -273,7 +273,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="comboBox"/>
+       <widget class="QComboBox" name="comboBoxStatus"/>
       </item>
      </layout>
     </item>
@@ -287,7 +287,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit_8"/>
+       <widget class="QLineEdit" name="lineEdit_IdParrain"/>
       </item>
      </layout>
     </item>
