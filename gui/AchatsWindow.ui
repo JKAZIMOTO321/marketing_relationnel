@@ -78,7 +78,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QComboBox" name="comboBox_2">
+         <widget class="QComboBox" name="comboBox_TriNom">
           <item>
            <property name="text">
             <string>Tous</string>
@@ -108,7 +108,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QComboBox" name="comboBox_3">
+         <widget class="QComboBox" name="comboBox_TriMontant">
           <item>
            <property name="text">
             <string>Tous</string>
@@ -129,7 +129,7 @@
        </layout>
       </item>
       <item row="4" column="0">
-       <widget class="QPushButton" name="btnRecgercher">
+       <widget class="QPushButton" name="btnRechercher">
         <property name="text">
          <string>Rechercher</string>
         </property>
@@ -164,6 +164,12 @@
    </item>
    <item row="1" column="0">
     <widget class="QFrame" name="frame">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
@@ -181,7 +187,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QComboBox" name="comboBox"/>
+         <widget class="QComboBox" name="comboBox_NomClient"/>
         </item>
        </layout>
       </item>
@@ -195,7 +201,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QDoubleSpinBox" name="doubleSpinBox">
+         <widget class="QDoubleSpinBox" name="doubleSpinBoxMontant">
           <property name="decimals">
            <number>3</number>
           </property>
