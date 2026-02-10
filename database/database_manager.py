@@ -84,8 +84,11 @@ class DatabaseManager():
             except Exception as e:
                 print(f"Erreur de l'ajout du client {e}")
 
-    def get_clients(self):
-        requete = "select * from Clients;"
+    def get_clients(self, all=True, ToSelect=None):
+        if all:
+            requete = "select * from Clients;"
+        if ToSelect is not None :
+            requete = f"select {ToSelect} from Clients"
         resultat = self.requetes_select(requette=requete)
         return resultat
     
@@ -109,16 +112,3 @@ class DatabaseManager():
     def get_tot_achat_par_client(self):
         query = "SELECT ClientID, SUM(Montant) AS total FROM Achats GROUP BY ClientID;"
         return self.requetes_select(requette=query)
-    
-    
-            
-
-        
-
-db = DatabaseManager()
-# db.add_client(ClientName="Aaron Faradja",Email="aaronfaradja@gmail.com",Phone="+243981399690",parrainID=6)
-# clients = db.get_clients()
-# relations = db.get_relations()
-# print(relations)
-# db.add_achat(3,500)
-# print(db.get_tot_achats())
