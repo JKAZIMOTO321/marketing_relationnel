@@ -1,15 +1,33 @@
 from PyQt5.QtWidgets import QWidget, QMessageBox
 from gui.ui_clientWindow import Ui_Form
 from services.client_services import ClientsService
-from .utilitaires import demanderConfirmation, afficher_alerte, afficher_information
+from .utilitaires import (demanderConfirmation, afficher_alerte, 
+                          afficher_information, nettoyerLineEdit, 
+                          ajusterColonnesDansTables)
 
 class ClientPage(QWidget):
     def __init__(self):
         super().__init__()
         self.ui = Ui_Form()
         self.ui.setupUi(self)
+        ajusterColonnesDansTables([self.ui.tableWidget])
         self.clientService = ClientsService()
+        self.colonnesTables =[
+            ("ClientID", "ID"),
+            ("ClientName", "Nom complet"),
+            ("Email", "Email"),
+            ("Phone", "Téléphone"),
+            ("DateInscription", "Date inscription"),
+            ("Statut", "Statut"),
+        ]
         self.chargerParrainsComboBox(self.ui.comboBox_AddParrain)
+        self.elementsAdd = [self.ui.lineEdit_AddNom, self.ui.lineEdit_AddEmail, self.ui.lineEdit_AddTel]
+        self.elementsMod = [
+            self.ui.lineEdit_ModifNom,
+            self.ui.lineEdit_ModEmail,
+            self.ui.lineEdit_ModTel
+        ]
+        self.ui.btn_Ajouter.clicked.connect(self.ajouterClient)
 
     def ajouterClient(self):
         donnees ={
@@ -38,6 +56,7 @@ class ClientPage(QWidget):
                 afficher_information(message="Ajout du client effectué avec succès")
             if not ajout:
                 afficher_alerte(message="Echec de l'enregistrement")
+            nettoyerLineEdit(self.elementsAdd)
 
 
     def chargerParrainsComboBox(self, ComboBox):
