@@ -11,3 +11,11 @@ def demanderConfirmation(fenetre,messageDemande):
         return True
     else:
         return False
+    
+def afficher_alerte(message):
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Warning)
+    msg.setWindowTitle("Attention")
+    msg.setText(message)
+    msg.setStandardButtons(QMessageBox.Ok)
+    msg.exec_()
