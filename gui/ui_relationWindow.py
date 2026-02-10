@@ -199,12 +199,3 @@ class Ui_Form(object):
         item = self.tableWidget.horizontalHeaderItem(4)
         item.setText(_translate("Form", "Date"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())

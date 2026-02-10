@@ -179,13 +179,3 @@ class Ui_Form(object):
         self.label.setText(_translate("Form", "Nom du client :"))
         self.label_7.setText(_translate("Form", "Total Commissions :"))
         self.lblTotalCommissions.setText(_translate("Form", "Commissions"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
