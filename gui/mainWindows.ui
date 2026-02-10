@@ -43,14 +43,16 @@
      <string>Gestion</string>
     </property>
     <addaction name="actionClients"/>
+    <addaction name="separator"/>
     <addaction name="actionRelations"/>
     <addaction name="actionAchats"/>
+    <addaction name="separator"/>
+    <addaction name="actionAcceuil"/>
    </widget>
    <widget class="QMenu" name="menuAnalyse">
     <property name="title">
      <string>Analyse</string>
     </property>
-    <addaction name="actionCommissions"/>
     <addaction name="actionGraphe"/>
    </widget>
    <addaction name="menuGraphes"/>
@@ -58,17 +60,17 @@
   </widget>
   <action name="actionClients">
    <property name="text">
-    <string>Clients</string>
+    <string>Acceuils</string>
    </property>
   </action>
   <action name="actionRelations">
    <property name="text">
-    <string>Relations</string>
+    <string>Clients</string>
    </property>
   </action>
   <action name="actionAchats">
    <property name="text">
-    <string>Achats</string>
+    <string>Relations</string>
    </property>
   </action>
   <action name="actionCommissions">
@@ -79,6 +81,11 @@
   <action name="actionGraphe">
    <property name="text">
     <string>Graphe du reseau</string>
+   </property>
+  </action>
+  <action name="actionAcceuil">
+   <property name="text">
+    <string>Achats</string>
    </property>
   </action>
  </widget>
