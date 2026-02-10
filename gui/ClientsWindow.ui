@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>676</width>
-    <height>560</height>
+    <width>689</width>
+    <height>577</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -26,6 +26,30 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <family>Times New Roman</family>
+       <pointsize>22</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Gestion Clients</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="0">
     <widget class="QFrame" name="frame">
      <property name="sizePolicy">
@@ -141,6 +165,34 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
+      <item row="4" column="0">
+       <layout class="QFormLayout" name="formLayout_11">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>Status :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="comboBoxStatus"/>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="0">
+       <layout class="QFormLayout" name="formLayout_6">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>Telephone :</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="lineEdit_ModTel"/>
+        </item>
+       </layout>
+      </item>
       <item row="0" column="0">
        <layout class="QFormLayout" name="formLayout_9">
         <item row="0" column="0">
@@ -162,20 +214,6 @@
         </item>
        </layout>
       </item>
-      <item row="1" column="0">
-       <layout class="QFormLayout" name="formLayout_7">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_9">
-          <property name="text">
-           <string>Nom :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="lineEdit_ModifNom"/>
-        </item>
-       </layout>
-      </item>
       <item row="2" column="0">
        <layout class="QFormLayout" name="formLayout_5">
         <item row="0" column="0">
@@ -190,36 +228,18 @@
         </item>
        </layout>
       </item>
-      <item row="3" column="0">
-       <layout class="QFormLayout" name="formLayout_6">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Telephone :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="lineEdit_ModTel"/>
-        </item>
-       </layout>
-      </item>
-      <item row="4" column="0">
-       <layout class="QFormLayout" name="formLayout_11">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>Status :</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QComboBox" name="comboBoxStatus"/>
-        </item>
-       </layout>
-      </item>
       <item row="5" column="0">
        <layout class="QGridLayout" name="gridLayout">
+        <item row="1" column="0">
+         <widget class="QPushButton" name="btnModParrain">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(94, 92, 100);</string>
+          </property>
+          <property name="text">
+           <string>Modifier parrain ?</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="0">
          <layout class="QFormLayout" name="formLayout_8">
           <item row="0" column="0">
@@ -244,15 +264,19 @@
           </item>
          </layout>
         </item>
-        <item row="1" column="0">
-         <widget class="QPushButton" name="btnModParrain">
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(94, 92, 100);</string>
-          </property>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <layout class="QFormLayout" name="formLayout_7">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_9">
           <property name="text">
-           <string>Modifier parrain ?</string>
+           <string>Nom :</string>
           </property>
          </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="lineEdit_ModifNom"/>
         </item>
        </layout>
       </item>
@@ -288,6 +312,13 @@ color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string>Actualiser</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QPushButton" name="btnCommissions">
+     <property name="text">
+      <string>Voir Commissions</string>
      </property>
     </widget>
    </item>
@@ -366,30 +397,6 @@ color: rgb(255, 255, 255);</string>
        <string>Status</string>
       </property>
      </column>
-    </widget>
-   </item>
-   <item row="0" column="0" colspan="2">
-    <widget class="QLabel" name="label_2">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <family>Times New Roman</family>
-       <pointsize>22</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Gestion Clients</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
     </widget>
    </item>
   </layout>
