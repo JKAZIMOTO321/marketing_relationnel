@@ -59,6 +59,7 @@ class ClientPage(QWidget):
             )
             if ajout:
                 afficher_information(message="Ajout du client effectué avec succès")
+                self.chargerDonneesDansTable()
             if not ajout:
                 afficher_alerte(message="Echec de l'enregistrement")
             nettoyerLineEdit(self.elementsAdd)
