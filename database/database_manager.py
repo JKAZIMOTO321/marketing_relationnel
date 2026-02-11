@@ -84,6 +84,10 @@ class DatabaseManager():
             except Exception as e:
                 print(f"Erreur de l'ajout du client {e}")
 
+    def update_client(self, id, ClientName, Email, Phone):
+        query = "UPDATE Clients SET ClientName= %s, Email=%s, Phone=%s WHERE id=%s ;"
+        self.insert_update_delete(query=query, params=(ClientName, Email, Phone, id))
+
     def get_clients(self, all=True, ToSelect=None):
         if all:
             requete = "select * from Clients;"
