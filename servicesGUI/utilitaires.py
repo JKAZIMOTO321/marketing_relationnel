@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QHeaderView
 
 def demanderConfirmation(fenetre,messageDemande):
     confirmation = QMessageBox.question(
@@ -28,3 +28,13 @@ def afficher_information(message):
     # msg.setInformativeText("Vous pouvez maintenant fermer l'application.")
     msg.setStandardButtons(QMessageBox.Ok)
     msg.exec_()
+
+def nettoyerLineEdit(listLineEdit):
+    for el in listLineEdit:
+        el.clear()
+
+def ajusterColonnesDansTables(listTables):
+    for table in listTables:
+        table.horizontalHeader().setSectionResizeMode(
+        QHeaderView.Stretch
+        )
