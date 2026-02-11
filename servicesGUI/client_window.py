@@ -103,9 +103,7 @@ class ClientPage(QWidget):
         if ligne<0 :
             afficher_alerte(message="Aucun element selectionnee")
             return
-
         # 2. Extraire les données des colonnes (0, 1, 2, etc.)
-        # .text() permet de récupérer la chaîne de caractères
         id = self.ui.tableWidget.item(ligne, 0).text()
         nom = self.ui.tableWidget.item(ligne, 1).text()
         email = self.ui.tableWidget.item(ligne, 2).text()
@@ -119,3 +117,12 @@ class ClientPage(QWidget):
         idx = self.ui.comboBoxStatus.findText(status)
         if idx>=0:
             self.ui.comboBoxStatus.setCurrentIndex(idx)
+
+    def modifierClient(self):
+        pass
+
+    def supprimerClient(self):
+        pass
+
+    def modifierParrain(self):
+        pass
