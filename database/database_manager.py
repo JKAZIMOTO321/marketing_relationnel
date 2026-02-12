@@ -98,7 +98,7 @@ class DatabaseManager():
         query = "DELETE FROM Clients WHERE ClientID=%s ;"
         self.insert_update_delete(query=query, params=(id))
 
-    def get_clients(self, all=True, ToSelect=None, exceptOne=False, idToExcept=0):
+    def get_clients(self, all=True, ToSelect=None, exceptOne=False, idToExcept=None):
         if all:
             requete = "select * from Clients;"
         if ToSelect is not None :
