@@ -1,4 +1,7 @@
 from PyQt5.QtWidgets import QMessageBox, QHeaderView
+from services.client_services import ClientsService
+
+cli = ClientsService()
 
 def demanderConfirmation(fenetre,messageDemande):
     confirmation = QMessageBox.question(
@@ -38,3 +41,19 @@ def ajusterColonnesDansTables(listTables):
         table.horizontalHeader().setSectionResizeMode(
         QHeaderView.Stretch
         )
+
+def chargerClientsDansComboBox(ComboBox, exceptOne=False, idToExcept=None):
+        #depuis la BDD
+        clients = None
+        if exceptOne:
+            clients = cli.recupererNomId(exceptOne=True, idToExcept=idToExcept)
+        else :
+            clients = cli.recupererNomId()
+            
+        for client in clients:
+            client_id = client["ClientID"]
+            clientNom = client["ClientName"]
+            ComboBox.addItem(
+                clientNom,
+                client_id
+            )
