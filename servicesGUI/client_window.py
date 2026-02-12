@@ -141,10 +141,5 @@ class ClientPage(QWidget):
                 except Exception as e:
                     afficher_alerte(message=f"Echec de suppression : {e}")
 
-
-
-    def modifierParrain(self):
-        pass
-
     def voirCommission(self):
         pass
