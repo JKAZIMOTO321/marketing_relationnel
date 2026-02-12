@@ -22,11 +22,15 @@ class AchatsPage(QWidget):
     def enregistrerAchat(self):
         try:
             idClient = int(self.ui.comboBox_NomClient.currentData())
-            montant = float(self.ui.doubleSpinBoxMontant.text())
+            montant = float(self.ui.doubleSpinBoxMontant.value())
             self.achatsS.enregistrerAchat(idClient=idClient, Montant=montant)
             afficher_information(message="Succès !")
         except Exception as e:
             afficher_alerte(message=f"Erreur : {e}")
+
+    def chargerDonneesDansTable(self):
+        table = self.ui.tableWidget
+
 
 
     
