@@ -3,11 +3,14 @@ import networkx as nx
 class GraphService:
     def __init__(self):
         self.db = DatabaseManager()
+        # self.graphe = self.construire_graphe()
+    
+    def charger_les_donnees(self):
         self.relations = self.db.get_relations()
         self.achats = self.db.get_tot_achats()
-        self.graphe = self.construire_graphe()
-    
+
     def construire_graphe(self, taux_direct=0.05):
+        self.charger_les_donnees()
         graphe = {}
         for relation in self.relations:
             parrain = relation["parrainID"]
@@ -28,7 +31,7 @@ class GraphService:
     def construire_networkx_graph(self):
         NetGraph = nx.DiGraph()
         
-        graphe = self.graphe
+        graphe = self.construire_graphe()
         for parrain, filleul in graphe.items():
             # Ajout du noeud parenet
             NetGraph.add_node(parrain)
@@ -37,5 +40,5 @@ class GraphService:
                 NetGraph.add_node(child)
                 NetGraph.add_edge(parrain, child, weight= poids)
             
-            return NetGraph
+        return NetGraph
     
