@@ -1,4 +1,5 @@
 from database.database_manager import DatabaseManager
+import networkx as nx
 class GraphService:
     def __init__(self):
         self.db = DatabaseManager()
@@ -24,4 +25,17 @@ class GraphService:
                 graphe[filleul] = []
         return graphe
 
+    def construire_networkx_graph(self):
+        NetGraph = nx.DiGraph()
+        
+        graphe = self.graphe
+        for parrain, filleul in graphe.items():
+            # Ajout du noeud parenet
+            NetGraph.add_node(parrain)
+            
+            for child, poids in filleul:
+                NetGraph.add_node(child)
+                NetGraph.add_edge(parrain, child, weight= poids)
+            
+            return NetGraph
     
