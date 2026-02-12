@@ -31,7 +31,7 @@ class ClientPage(QWidget):
         ]
         self.ui.btn_Ajouter.clicked.connect(self.ajouterClient)
         self.ui.tableWidget.itemSelectionChanged.connect(self.remplirChampsModifierSelection)
-        # self.ui.btn_Actualiser.clicked.connect(self.remplirChampsModifierSelection)
+        self.ui.btnModifier.clicked.connect(self.modifierClient)
 
 
     def ajouterClient(self):
@@ -108,21 +108,43 @@ class ClientPage(QWidget):
         nom = self.ui.tableWidget.item(ligne, 1).text()
         email = self.ui.tableWidget.item(ligne, 2).text()
         tel = self.ui.tableWidget.item(ligne, 3).text()
-        status = self.ui.tableWidget.item(ligne, 4).text()
 
         self.ui.lineEdit_IdClient.setText(id)
         self.ui.lineEdit_ModifNom.setText(nom)
         self.ui.lineEdit_ModEmail.setText(email)
         self.ui.lineEdit_ModTel.setText(tel)
-        idx = self.ui.comboBoxStatus.findText(status)
-        if idx>=0:
-            self.ui.comboBoxStatus.setCurrentIndex(idx)
 
     def modifierClient(self):
-        pass
+        id = self.ui.lineEdit_IdClient.text()
+        nom = self.ui.lineEdit_ModifNom.text()
+        email = self.ui.lineEdit_ModEmail.text()
+        tel = self.ui.lineEdit_ModTel.text()
+        confirm = demanderConfirmation(fenetre=self, 
+                                           messageDemande="Voulez vous vraiment modifier")
+        if confirm:
+            try:
+                action =self.clientService.modifierClient(id=id, ClientName=nom, Email=email, Phone=tel)
+                afficher_information(message="Succes")
+            except Exception as e:
+                afficher_alerte(message=f"Erreur : {e}")
 
     def supprimerClient(self):
-        pass
+        confirm = demanderConfirmation(fenetre=self, 
+            messageDemande="Voulez vous vraiment supprimer ?")
+        if confirm:
+            confirm2 = demanderConfirmation(fenetre=self, 
+            messageDemande="Voulez vous vraiment supprimer ?")
+            if confirm2:
+                try:
+                    id= int(self.ui.lineEdit_IdClient.text())
+                    self.clientService.supprimerClient(idClient=id)
+                except Exception as e:
+                    afficher_alerte(message=f"Echec de suppression : {e}")
+
+
 
     def modifierParrain(self):
+        pass
+
+    def voirCommission(self):
         pass
