@@ -4,7 +4,7 @@ from gui.ui_clientWindow import Ui_Form
 from services.client_services import ClientsService
 from .utilitaires import (demanderConfirmation, afficher_alerte, 
                           afficher_information, nettoyerLineEdit, 
-                          ajusterColonnesDansTables)
+                          ajusterColonnesDansTables, chargerClientsDansComboBox)
 
 class ClientPage(QWidget):
     def __init__(self):
@@ -68,14 +68,7 @@ class ClientPage(QWidget):
         ComboBox.clear()
         ComboBox.addItem("Aucun Parrain", None)
         #depuis la BDD
-        clients = self.clientService.recupererNomId()
-        for client in clients:
-            client_id = client["ClientID"]
-            clientNom = client["ClientName"]
-            ComboBox.addItem(
-                clientNom,
-                client_id
-            )
+        chargerClientsDansComboBox(ComboBox=ComboBox)
 
     def chargerDonneesDansTable(self):
         table = self.ui.tableWidget
