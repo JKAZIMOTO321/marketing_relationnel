@@ -14,3 +14,11 @@ class ClientsService:
             return True
         except Exception as e:
             return False
+        
+    def modifierClient(self, id, ClientName, Email, Phone):
+        self.data.update_client(id=id, ClientName=ClientName, Email=Email, Phone=Phone)
+
+    def supprimerClient(self, idClient):
+        self.data.delete_client(id=idClient)
+
+
