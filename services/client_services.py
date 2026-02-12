@@ -4,8 +4,13 @@ class ClientsService:
     def __init__(self):
         self.data = DatabaseManager()
         
-    def recupererNomId(self):
-        donnees = self.data.get_clients(all=False, ToSelect="ClientID,ClientName")
+    def recupererNomId(self, exceptOne=False, idToExcept=None):
+        donnees = self.data.get_clients(
+            all=False, 
+            ToSelect="ClientID,ClientName",
+            exceptOne=exceptOne, 
+            idToExcept=idToExcept
+        )
         return donnees
     
     def ajouterClient(self, Nom, Email, Phone, Parrain):
