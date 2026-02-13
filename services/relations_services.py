@@ -19,7 +19,7 @@ class RelationService:
                 return True
             visited.add(noeud)
 
-            for voisin in graphe.get(noeud, []):
+            for voisin, _ in graphe.get(noeud, []):
                 if voisin not in visited:
                     if dfs(voisin):
                         return True
