@@ -35,7 +35,7 @@ class DatabaseManager():
             cursor.execute(requette, params or ())
             resultats = cursor.fetchall()
         except Exception as e:
-            print(f"Une erreur est survenu : {e}")
+            return False
         finally:
             self.fermer_connexion() 
         return resultats
@@ -49,10 +49,8 @@ class DatabaseManager():
             self.connexion.commit()
             if returnLastId:
                 return cursor.lastrowid
-            print("Operation effectue avec succes")
         except Exception as e:
             self.connexion.rollback()
-            print(f"Erreur {e}")
         finally:
             if cursor:
                 cursor.close()
@@ -121,6 +119,15 @@ class DatabaseManager():
         resultats = self.requetes_select(requette=query)
         return resultats
     
+    def get_relations_ClientName(self):
+        query = "SELECT r.parrainID,p.ClientName AS NomParrain," \
+        "r.filleulID,f.ClientName AS NomFilleul " \
+        "FROM Relations r " \
+        "INNER JOIN Clients p ON r.parrainID = p.ClientID " \
+        "INNER JOIN Clients f ON r.filleulID = f.ClientID;"
+        resultats = self.requetes_select(requette=query)
+        return resultats
+
     def get_tot_achats(self):
         query = "SELECT ClientID, SUM(Montant) AS total FROM Achats GROUP BY ClientID;"
         resultat = self.requetes_select(requette=query)
