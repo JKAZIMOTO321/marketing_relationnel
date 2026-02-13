@@ -5,4 +5,5 @@ class RelationService:
         self.db = DatabaseManager()
 
     def get_data_tableau(self):
-        pass
+        data = self.db.get_relations_ClientName()
+        return data
