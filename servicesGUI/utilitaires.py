@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QMessageBox, QHeaderView
+from PyQt5.QtWidgets import QMessageBox, QHeaderView,QTableWidgetItem
+from PyQt5.QtCore import Qt
 from services.client_services import ClientsService
 
 cli = ClientsService()
@@ -57,3 +58,8 @@ def chargerClientsDansComboBox(ComboBox, exceptOne=False, idToExcept=None):
                 clientNom,
                 client_id
             )
+
+def _create_item(value):
+        item = QTableWidgetItem(str(value))
+        item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+        return item
