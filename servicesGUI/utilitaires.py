@@ -47,10 +47,13 @@ def chargerClientsDansComboBox(ComboBox, exceptOne=False, idToExcept=None):
         #depuis la BDD
         clients = None
         if exceptOne:
-            clients = cli.recupererNomId(exceptOne=True, idToExcept=idToExcept)
+            clients = cli.recupererNomId(exceptUn=True, idToExcept=idToExcept)
         else :
             clients = cli.recupererNomId()
-            
+
+        if not clients:
+            return
+
         for client in clients:
             client_id = client["ClientID"]
             clientNom = client["ClientName"]
