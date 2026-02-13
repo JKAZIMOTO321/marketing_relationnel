@@ -121,7 +121,8 @@ class DatabaseManager():
     
     def get_relations_ClientName(self):
         query = "SELECT r.parrainID,p.ClientName AS NomParrain," \
-        "r.filleulID,f.ClientName AS NomFilleul " \
+        "r.filleulID,f.ClientName AS NomFilleul," \
+        "r.DateRelation AS Date " \
         "FROM Relations r " \
         "INNER JOIN Clients p ON r.parrainID = p.ClientID " \
         "INNER JOIN Clients f ON r.filleulID = f.ClientID;"
