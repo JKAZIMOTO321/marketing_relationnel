@@ -102,8 +102,8 @@ class DatabaseManager():
         if ToSelect is not None :
             requete = f"select {ToSelect} from Clients"
         # Pour avoir tous les clients sauf un
-        if exceptOne:
-            requete += " whrere id !=%s"
+        if exceptOne == True and idToExcept is not None:
+            requete += " where ClientID !=%s"
             resultat = self.requetes_select(requette=requete, params=(idToExcept))
             return resultat
         
