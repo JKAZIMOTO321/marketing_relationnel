@@ -129,6 +129,13 @@ class DatabaseManager():
             achats_totaux[ligne["ClientID"]]=float(ligne["total"])
         return achats_totaux
     
+    def get_achats_ClientName(self):
+        query = "select Achats.ClientID, Clients.ClientName, Achats.Montant, Achats.DateAchat " \
+        "from Achats inner join Clients where Clients.ClientID =Achats.ClientID;"
+        resultat = self.requetes_select(requette=query)
+        return resultat
+
+    
     def get_tot_achat_par_client(self):
         query = "SELECT ClientID, SUM(Montant) AS total FROM Achats GROUP BY ClientID;"
         return self.requetes_select(requette=query)
