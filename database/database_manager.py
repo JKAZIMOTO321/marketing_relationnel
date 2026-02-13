@@ -35,7 +35,8 @@ class DatabaseManager():
             cursor.execute(requette, params or ())
             resultats = cursor.fetchall()
         except Exception as e:
-            return False
+            print(f"Erreur SQL SELECT: {e}")
+            return []
         finally:
             self.fermer_connexion() 
         return resultats
@@ -94,7 +95,7 @@ class DatabaseManager():
             
     def delete_client(self, id):
         query = "DELETE FROM Clients WHERE ClientID=%s ;"
-        self.insert_update_delete(query=query, params=(id))
+        self.insert_update_delete(query=query, params=(id,))
 
     def get_clients(self, all=True, ToSelect=None, exceptOne=False, idToExcept=None):
         if all:
@@ -103,8 +104,8 @@ class DatabaseManager():
             requete = f"select {ToSelect} from Clients"
         # Pour avoir tous les clients sauf un
         if exceptOne == True and idToExcept is not None:
-            requete += " where ClientID !=%s"
-            resultat = self.requetes_select(requette=requete, params=(idToExcept))
+            requete += " where ClientID != %s"
+            resultat = self.requetes_select(requette=requete, params=(idToExcept,))
             return resultat
         
         resultat = self.requetes_select(requette=requete)
