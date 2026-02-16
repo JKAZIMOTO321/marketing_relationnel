@@ -19,26 +19,6 @@ class GraphePage(QWidget):
         self.ui.btnActualiser.clicked.connect(self.charger_graphe)
         self.charger_graphe()
 
-
-    # def charger_graphe(self):
-    #     self.figure.clear()
-    #     if not self.grapheService.graphe:
-    #         return
-    #     NetGraph = self.grapheService.construire_networkx_graph()
-    #     pos = nx.spring_layout(G=NetGraph, seed=42)
-    #     weights = nx.get_edge_attributes(NetGraph, 'weight')
-    #     nx.draw(
-    #         G=NetGraph,
-    #         pos=pos,
-    #         with_labels=True,
-    #         node_color='lightblue',
-    #         node_size=2000,
-    #         font_size=9,
-    #         arrows=True
-    #     )
-    #     nx.draw_networkx_edge_labels(G=NetGraph, pos=pos, edge_labels=weights)
-    #     self.canvas.draw
-
     def charger_graphe(self):
         self.figure.clear()
         NetGraph = self.grapheService.construire_networkx_graph()

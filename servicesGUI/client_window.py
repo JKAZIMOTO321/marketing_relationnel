@@ -108,7 +108,7 @@ class ClientPage(QWidget):
         self.ui.lineEdit_ModTel.setText(tel)
 
     def modifierClient(self):
-        id = self.ui.lineEdit_IdClient.text()
+        id = int(self.ui.lineEdit_IdClient.text())
         nom = self.ui.lineEdit_ModifNom.text()
         email = self.ui.lineEdit_ModEmail.text()
         tel = self.ui.lineEdit_ModTel.text()
@@ -126,7 +126,7 @@ class ClientPage(QWidget):
             messageDemande="Voulez vous vraiment supprimer ?")
         if confirm:
             confirm2 = demanderConfirmation(fenetre=self, 
-            messageDemande="Voulez vous vraiment supprimer ?")
+            messageDemande="Voulez vous vraiment le supprimer ?")
             if confirm2:
                 try:
                     id= int(self.ui.lineEdit_IdClient.text())
