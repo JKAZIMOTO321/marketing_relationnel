@@ -3,7 +3,8 @@ from PyQt5.QtWidgets import QWidget
 from gui.ui_relationWindow import Ui_Form
 from services.relations_services import RelationService
 from .utilitaires import (ajusterColonnesDansTables,
-                          _create_item, chargerClientsDansComboBox)
+                          _create_item, chargerClientsDansComboBox, afficher_alerte,
+                          afficher_information)
 
 class RelationsPage(QWidget):
     def __init__(self):
@@ -17,6 +18,7 @@ class RelationsPage(QWidget):
         self.chargerCBParrain()
         self.chargerCBFilleul()
         self.ui.comboBox_AddParrain.currentTextChanged.connect(self.chargerCBFilleul)
+        self.ui.btnAjouter.clicked.connect(self.ajouterRelation)
 
     def chargerDonneesDansTable(self):
         table = self.ui.tableWidget
@@ -42,6 +44,23 @@ class RelationsPage(QWidget):
         chargerClientsDansComboBox(ComboBox=self.ui.comboBox_AddFilleul,
                                    exceptOne=True, 
                                    idToExcept=idParrain)
+
+    def ajouterRelation(self):
+        parrain = self.ui.comboBox_AddParrain.currentData()
+        filleul = self.ui.comboBox_AddFilleul.currentData()
+        #Empecher l'insertion de la relation si elle creerait un cycle
+        if self.relService.relationCreeraitCycle(parrainID=parrain, filleulID=filleul):
+            afficher_alerte("Erreur : Cette relation Creerait un cycle dans le reseau")
+            return
+        try:
+            self.relService.db.add_relation(parrainID=parrain, filleulID=filleul)
+            afficher_information("Ajout de la relation effectué avec succès")
+        except Exception as e:
+            afficher_alerte(f"Erreur :{e}")
+    
+
+
+        
 
 
 
