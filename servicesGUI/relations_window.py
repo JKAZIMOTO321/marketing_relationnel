@@ -19,6 +19,7 @@ class RelationsPage(QWidget):
         self.chargerCBFilleul()
         self.ui.comboBox_AddParrain.currentTextChanged.connect(self.chargerCBFilleul)
         self.ui.btnAjouter.clicked.connect(self.ajouterRelation)
+        self.ui.btnActualiser.clicked.connect(self.chargerDonneesDansTable)
 
     def chargerDonneesDansTable(self):
         table = self.ui.tableWidget
@@ -57,6 +58,7 @@ class RelationsPage(QWidget):
             afficher_information("Ajout de la relation effectué avec succès")
         except Exception as e:
             afficher_alerte(f"Erreur :{e}")
+        self.chargerDonneesDansTable()
     
 
 
