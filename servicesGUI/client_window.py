@@ -32,6 +32,7 @@ class ClientPage(QWidget):
         self.ui.btn_Ajouter.clicked.connect(self.ajouterClient)
         self.ui.tableWidget.itemSelectionChanged.connect(self.remplirChampsModifierSelection)
         self.ui.btnModifier.clicked.connect(self.modifierClient)
+        self.ui.btnSupprimer.clicked.connect(self.supprimerClient)
 
 
     def ajouterClient(self):
