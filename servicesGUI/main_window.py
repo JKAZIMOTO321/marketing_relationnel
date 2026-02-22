@@ -15,7 +15,7 @@ class MainWindow(QMainWindow):
         #instanciation des pages
         self.fenetres = {
             "achats" : AchatsPage(),
-            "clients" : ClientPage(),
+            "clients" : ClientPage(mainWindow=self),
             "commissions": CommissionPage(),
             "graphe" : GraphePage(),
             "relations" : RelationsPage(),
@@ -29,6 +29,8 @@ class MainWindow(QMainWindow):
         self.ui.actionClients.triggered.connect(lambda: self.afficherFenetre("clients"))
         self.ui.actionGraphe.triggered.connect(lambda : self.afficherFenetre("graphe"))
         self.ui.actionRelations.triggered.connect(lambda: self.afficherFenetre("relations"))
+
+        self.afficherFenetre(nomFenetre="graphe")
 
     def afficherFenetre(self, nomFenetre):
         self.ui.stackedWidget.setCurrentWidget(self.fenetres[nomFenetre])
