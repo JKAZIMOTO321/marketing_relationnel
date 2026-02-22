@@ -1,8 +1,10 @@
 from services import GraphService
+from .client_services import ClientsService
 
 class CommissionService:
     def __init__(self):
         self.graph_service = GraphService()
+        self.clientsS = ClientsService()
         self.graphe = self.graph_service.construire_graphe()
         self.achats_totaux = self.graph_service.achats
         
@@ -37,3 +39,7 @@ class CommissionService:
     def get_commissions_details(self, parrainID):
         visited = set()
         return self.dfs_commission(parrainID, 1, visited)
+    
+    def get_nomClient(self,idClient):
+        nom = self.clientsS.recupererNom(idClient=idClient)
+        return nom
