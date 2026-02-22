@@ -13,6 +13,15 @@ class ClientsService:
         )
         return donnees
     
+    def recupererNom(self, idClient):
+        nomDict = self.data.get_clients(
+            all=False,
+            ToSelect="ClientName",
+            oneSelect=idClient
+        )
+        nomText = nomDict[0]["ClientName"]
+        return nomText
+    
     def ajouterClient(self, Nom, Email, Phone, Parrain):
         try:
             self.data.add_client(ClientName=Nom, Email=Email, Phone=Phone, parrainID=Parrain)
