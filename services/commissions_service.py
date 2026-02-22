@@ -3,36 +3,37 @@ from services import GraphService
 class CommissionService:
     def __init__(self):
         self.graph_service = GraphService()
-        self.graphe = self.graph_service.graphe
+        self.graphe = self.graph_service.construire_graphe()
         self.achats_totaux = self.graph_service.achats
-
-    def dfs_commission(self, graphe, achats_totaux, client_courant,niveau, visited):
-        commission = 0
-        visited.add(client_courant)
-        taux = 0.05 if niveau == 1 else 0.01
-        for filleul, _ in graphe.get(client_courant,[]):
-            if filleul not in visited:
-                total_achat = achats_totaux.get(filleul,0)
-                gain = total_achat*taux
-                commission += gain
-
-                # recursivité
-                commission += self.dfs_commission(
-                    graphe,
-                    achats_totaux,
-                    filleul,
-                    niveau+1,
-                    visited
-                )
-        return commission
+        
     
-    def get_commission_total(self, parrainID):
+    def dfs_commission(self, client_courant, niveau, visited):
+        visited.add(client_courant)
+
+        commissions_directes = []
+        commissions_indirectes = []
+
+        for filleul, _ in self.graphe.get(client_courant, []):
+            if filleul not in visited:
+
+                total_achat = self.achats_totaux.get(filleul, 0)
+
+                if niveau == 1:
+                    taux = 0.05
+                    commission = total_achat * taux
+                    commissions_directes.append((filleul, total_achat, commission))
+                else:
+                    taux = 0.01
+                    commission = total_achat * taux
+                    commissions_indirectes.append((filleul, total_achat, commission))
+
+                # récursion
+                d, i = self.dfs_commission(filleul, niveau + 1, visited)
+                commissions_directes += d
+                commissions_indirectes += i
+
+        return commissions_directes, commissions_indirectes
+    
+    def get_commissions_details(self, parrainID):
         visited = set()
-        total = self.dfs_commission(
-            graphe=self.graphe,
-            achats_totaux=self.achats_totaux,
-            client_courant=parrainID,
-            niveau=1,
-            visited=visited
-        )
-        return total
+        return self.dfs_commission(parrainID, 1, visited)
