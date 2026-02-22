@@ -138,14 +138,14 @@ class ClientPage(QWidget):
                     afficher_alerte(message=f"Echec de suppression : {e}")
 
     def voirCommission(self):
-        idClient = int(self.ui.lineEdit_IdClient.text())
-        if idClient:
+        try:
+            idClient = int(self.ui.lineEdit_IdClient.text())
             commissionWindow = self.mainWindow.fenetres["commissions"]
             #on passe l'id en parametre
             commissionWindow.idClient=idClient
             commissionWindow.charger_commissions()
             self.mainWindow.ui.stackedWidget.setCurrentWidget(commissionWindow)
-        else:
+        except:
             afficher_alerte(message="Veuillez d'abord selectionner un client")
         
         
