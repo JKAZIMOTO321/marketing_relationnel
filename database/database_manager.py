@@ -97,17 +97,22 @@ class DatabaseManager():
         query = "DELETE FROM Clients WHERE ClientID=%s ;"
         self.insert_update_delete(query=query, params=(id,))
 
-    def get_clients(self, all=True, ToSelect=None, exceptOne=False, idToExcept=None):
+    def get_clients(self, all=True, ToSelect=None, exceptOne=False, idToExcept=None, oneSelect=None):
         if all:
             requete = "select * from Clients;"
         if ToSelect is not None :
             requete = f"select {ToSelect} from Clients"
+            if oneSelect is not None:
+                requete += " where ClientID = %s"
+                resultat= self.requetes_select(requette=requete, params=(oneSelect,))
+                return resultat
+            
         # Pour avoir tous les clients sauf un
         if exceptOne == True and idToExcept is not None:
             requete += " where ClientID != %s"
             resultat = self.requetes_select(requette=requete, params=(idToExcept,))
             return resultat
-        
+        # pour avoir un seul client
         resultat = self.requetes_select(requette=requete)
         return resultat
     
