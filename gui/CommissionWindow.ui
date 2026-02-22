@@ -58,7 +58,7 @@
        <property name="font">
         <font>
          <family>Times New Roman</family>
-         <pointsize>20</pointsize>
+         <pointsize>21</pointsize>
         </font>
        </property>
        <property name="text">
@@ -250,13 +250,6 @@
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QPushButton" name="btnRetour">
-     <property name="text">
-      <string>Retour</string>
-     </property>
     </widget>
    </item>
   </layout>
