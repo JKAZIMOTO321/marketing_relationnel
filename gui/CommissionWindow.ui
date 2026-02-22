@@ -13,8 +13,8 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
     <widget class="QLabel" name="label_2">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -38,7 +38,7 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item>
     <layout class="QFormLayout" name="formLayout_5">
      <item row="0" column="0">
       <widget class="QLabel" name="label">
@@ -68,7 +68,7 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0">
+   <item>
     <layout class="QFormLayout" name="formLayout_4">
      <item row="0" column="0">
       <widget class="QLabel" name="label_7">
@@ -83,9 +83,27 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="lblTotCommissions">
+       <property name="font">
+        <font>
+         <family>Times New Roman</family>
+         <pointsize>20</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(28, 113, 216);</string>
+       </property>
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
-   <item row="3" column="0" colspan="2">
+   <item>
     <widget class="QFrame" name="frame">
      <property name="frameShape">
       <enum>QFrame::WinPanel</enum>
@@ -118,6 +136,11 @@
           <pointsize>13</pointsize>
          </font>
         </property>
+        <column>
+         <property name="text">
+          <string>Id Client</string>
+         </property>
+        </column>
         <column>
          <property name="text">
           <string>Noms</string>
@@ -182,6 +205,11 @@
         </property>
         <column>
          <property name="text">
+          <string>Id Client</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
           <string>Noms</string>
          </property>
         </column>
@@ -224,7 +252,7 @@
      </layout>
     </widget>
    </item>
-   <item row="4" column="1">
+   <item>
     <widget class="QPushButton" name="btnRetour">
      <property name="text">
       <string>Retour</string>
