@@ -16,7 +16,7 @@ class MainWindow(QMainWindow):
         self.fenetres = {
             "achats" : AchatsPage(),
             "clients" : ClientPage(mainWindow=self),
-            "commissions": CommissionPage(),
+            "commissions": CommissionPage(mainWindow=self),
             "graphe" : GraphePage(),
             "relations" : RelationsPage(),
         }
