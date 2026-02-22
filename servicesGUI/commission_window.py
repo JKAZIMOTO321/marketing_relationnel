@@ -4,16 +4,18 @@ from services.commissions_service import CommissionService
 from .utilitaires import ajusterColonnesDansTables
 
 class CommissionPage(QWidget):
-    def __init__(self, idClient=None):
+    def __init__(self,mainWindow, idClient=None):
         super().__init__()
         self.ui = Ui_Form()
         self.idClient = idClient
+        self.mainWindow = mainWindow
         self.service = CommissionService()
         self.ui.setupUi(self)
         tables = [self.ui.tableFilleulDirect, self.ui.tableFilleulIndirect]
         ajusterColonnesDansTables(tables)
         if  self.idClient:
             self.charger_commissions()
+        self.ui.btnRetour.clicked.connect(self.retourPageClient)
 
     def charger_commissions(self):
         directs, indirects = self.service.get_commissions_details(self.idClient)
@@ -36,6 +38,14 @@ class CommissionPage(QWidget):
         table.setRowCount(len(data))
 
         for row, (client_id, total_achat, commission) in enumerate(data):
+            nom = self.service.get_nomClient(idClient=client_id)
+
             table.setItem(row, 0, QTableWidgetItem(str(client_id)))
-            table.setItem(row, 1, QTableWidgetItem(str(total_achat)))
-            table.setItem(row, 2, QTableWidgetItem(str(commission)))
+            table.setItem(row, 1, QTableWidgetItem(str(nom)))
+            table.setItem(row, 2, QTableWidgetItem(str(total_achat)))
+            table.setItem(row, 3, QTableWidgetItem(str(commission)))
+
+    def retourPageClient(self):
+        clientWindow = self.mainWindow.fenetres["clients"]
+        clientWindow = self.mainWindow.fenetres["clients"]
+        self.mainWindow.ui.stackedWidget.setCurrentWidget(clientWindow)
