@@ -3,7 +3,6 @@ import networkx as nx
 class GraphService:
     def __init__(self):
         self.db = DatabaseManager()
-        
     
     def charger_les_donnees(self):
         self.relations = self.db.get_relations()

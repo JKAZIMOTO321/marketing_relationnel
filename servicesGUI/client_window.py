@@ -2,13 +2,15 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QMessageBox, QTableWidgetItem
 from gui.ui_clientWindow import Ui_Form
 from services.client_services import ClientsService
+from .commission_window import CommissionPage
 from .utilitaires import (demanderConfirmation, afficher_alerte, 
                           afficher_information, nettoyerLineEdit, 
                           ajusterColonnesDansTables, chargerClientsDansComboBox)
 
 class ClientPage(QWidget):
-    def __init__(self):
+    def __init__(self, mainWindow):
         super().__init__()
+        self.mainWindow = mainWindow
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         ajusterColonnesDansTables([self.ui.tableWidget])
@@ -33,7 +35,7 @@ class ClientPage(QWidget):
         self.ui.tableWidget.itemSelectionChanged.connect(self.remplirChampsModifierSelection)
         self.ui.btnModifier.clicked.connect(self.modifierClient)
         self.ui.btnSupprimer.clicked.connect(self.supprimerClient)
-
+        self.ui.btnCommissions.clicked.connect(self.voirCommission)
 
     def ajouterClient(self):
         donnees ={
@@ -136,4 +138,14 @@ class ClientPage(QWidget):
                     afficher_alerte(message=f"Echec de suppression : {e}")
 
     def voirCommission(self):
-        pass
+        idClient = int(self.ui.lineEdit_IdClient.text())
+        if idClient:
+            commissionWindow = self.mainWindow.fenetres["commissions"]
+            #on passe l'id en parametre
+            commissionWindow.idClient=idClient
+            commissionWindow.charger_commissions()
+            self.mainWindow.ui.stackedWidget.setCurrentWidget(commissionWindow)
+        else:
+            afficher_alerte(message="Veuillez d'abord selectionner un client")
+        
+        
