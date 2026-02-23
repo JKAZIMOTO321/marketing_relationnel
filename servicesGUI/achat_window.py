@@ -20,6 +20,7 @@ class AchatsPage(QWidget):
         self.chargerCB()
         self.chargerDonneesDansTable()
         self.ui.btnEnreigistrer.clicked.connect(self.enregistrerAchat)
+        self.ui.btnRechercher.clicked.connect(self.rechercherEtTrier)
 
     def chargerCB(self):
         chargerClientsDansComboBox(self.ui.comboBox_NomClient)
