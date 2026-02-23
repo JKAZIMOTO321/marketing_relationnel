@@ -44,7 +44,7 @@ class GraphePage(QWidget):
             return
 
         ax = self.figure.add_subplot(111)
-        self.ax = ax
+        self.figure.subplots_adjust(left=0, right=1, top=1, bottom=0)
         try:
             # Trouver la racine (client qui n'a pas de parent)
             roots = [n for n, d in NetGraph.in_degree() if d == 0]
@@ -54,12 +54,18 @@ class GraphePage(QWidget):
             else:
                 root = list(NetGraph.nodes())[0]
 
-            pos = self.hierarchy_pos(NetGraph, root, width=10, vert_gap=2)
+            pos = self.hierarchy_pos(NetGraph, root, width=4, vert_gap=1.2)
         except Exception:
             # Fallback if Graphviz/pydot is unavailable or layout fails.
             # pos = nx.spring_layout(NetGraph, seed=42)
             afficher_alerte("Erreur")
-        self.pos = pos
+        #reglage des axes pour ne pas couper le graphe lors des zoom
+        # x_values = [x for x, y in pos.values()]
+        # y_values = [y for x, y in pos.values()]
+
+        # ax.set_xlim(min(x_values) - 2, max(x_values) + 2)
+        # ax.set_ylim(min(y_values) - 2, max(y_values) + 2)
+        # ax.set_aspect('equal', adjustable='box')
         labels = {}
         for node in NetGraph.nodes():
             nom = self.grapheService.clientService.recupererNom(node)
@@ -110,7 +116,12 @@ class GraphePage(QWidget):
             font_color='red',
             font_size=10
         )
+        ax.margins(0)
+        ax.autoscale_view()
         ax.set_axis_off()
+
+        self.pos = pos
+        self.ax = ax
         self.canvas.draw()
 
     def hierarchy_pos(self,G, root, width=1., vert_gap=1., vert_loc=0, xcenter=0.5):
