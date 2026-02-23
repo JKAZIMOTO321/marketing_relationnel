@@ -132,7 +132,7 @@ class ClientPage(QWidget):
             messageDemande="Voulez vous vraiment supprimer ?")
         if confirm:
             confirm2 = demanderConfirmation(fenetre=self, 
-            messageDemande="Voulez vous vraiment le supprimer ?")
+            messageDemande="êtes vous sûr de vouloir supprimer ?")
             if confirm2:
                 try:
                     id= int(self.ui.lineEdit_IdClient.text())
