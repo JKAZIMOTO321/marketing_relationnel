@@ -38,9 +38,10 @@ class AchatsPage(QWidget):
         except Exception as e:
             afficher_alerte(message=f"Erreur : {e}")
 
-    def chargerDonneesDansTable(self):
+    def chargerDonneesDansTable(self, donnees=None):
         table = self.ui.tableWidget
-        donnees = self.achatsS.db.get_achats_ClientName()
+        if donnees is None:
+            donnees = self.achatsS.db.get_achats_ClientName()
         table.setRowCount(len(donnees))
         
         for row, achat in enumerate(donnees):
@@ -53,6 +54,33 @@ class AchatsPage(QWidget):
             if date_valeur:
                 date_valeur = date_valeur.strftime("%d/%m/%Y %H:%M")
             table.setItem(row,3,_create_item(date_valeur))
+    
+    def rechercherEtTrier(self):
+        donnees = self.achatsS.db.get_achats_ClientName()
+
+        # Recherche par nom
+        texte_recherche = self.ui.lineEdit_RechNom.text().lower()
+        if texte_recherche:
+            donnees = [
+                d for d in donnees
+                if texte_recherche in d.get("ClientName", "").lower()
+            ]
+
+        # Tri par nom
+        tri_nom = self.ui.comboBox_TriNom.currentText()
+        if tri_nom == "Nom(A-Z)":
+            donnees.sort(key=lambda x: x.get("ClientName", ""))
+        elif tri_nom == "Nom(Z-A)":
+            donnees.sort(key=lambda x: x.get("ClientName", ""), reverse=True)
+
+        # Tri par montant
+        tri_montant = self.ui.comboBox_TriMontant.currentText()
+        if tri_montant == "Croissant":
+            donnees.sort(key=lambda x: float(x.get("Montant", 0)))
+        elif tri_montant == "Decroissant":
+            donnees.sort(key=lambda x: float(x.get("Montant", 0)), reverse=True)
+
+        self.chargerDonneesDansTable(donnees)
 
 
 
