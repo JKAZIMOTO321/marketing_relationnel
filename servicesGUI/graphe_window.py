@@ -164,7 +164,26 @@ class GraphePage(QWidget):
         return pos
     
     def zoom_plus(self):
+
         pass
 
     def zoom_moins(self):
         pass
+
+    def _zoom(self, scale):
+        if not hasattr(self, "ax"):
+            return
+
+        xlim = self.ax.get_xlim()
+        ylim = self.ax.get_ylim()
+
+        x_center = (xlim[0] + xlim[1]) / 2
+        y_center = (ylim[0] + ylim[1]) / 2
+
+        x_range = (xlim[1] - xlim[0]) * scale
+        y_range = (ylim[1] - ylim[0]) * scale
+
+        self.ax.set_xlim([x_center - x_range / 2, x_center + x_range / 2])
+        self.ax.set_ylim([y_center - y_range / 2, y_center + y_range / 2])
+
+        self.canvas.draw()
