@@ -67,8 +67,7 @@ class ClientPage(QWidget):
                 afficher_alerte(message="Echec de l'enregistrement")
             nettoyerLineEdit(self.elementsAdd)
         # actualisation des donnees dans achatsWindow
-        achatWindow = self.mainWindow.fenetres["achats"]
-        achatWindow.actualiserData()
+        self.actualiserAchats()
 
     def chargerParrainsComboBox(self, ComboBox):
         ComboBox.clear()
@@ -126,6 +125,7 @@ class ClientPage(QWidget):
                 afficher_information(message="Succes")
             except Exception as e:
                 afficher_alerte(message=f"Erreur : {e}")
+        self.actualiserAchats()
 
     def supprimerClient(self):
         confirm = demanderConfirmation(fenetre=self, 
@@ -139,6 +139,7 @@ class ClientPage(QWidget):
                     self.clientService.supprimerClient(idClient=id)
                 except Exception as e:
                     afficher_alerte(message=f"Echec de suppression : {e}")
+        self.actualiserAchats()
 
     def voirCommission(self):
         try:
@@ -150,5 +151,11 @@ class ClientPage(QWidget):
             self.mainWindow.ui.stackedWidget.setCurrentWidget(commissionWindow)
         except:
             afficher_alerte(message="Veuillez d'abord selectionner un client")
+
+            
+    def actualiserAchats(self):
+        # actualisation des donnees dans achatsWindow
+        achatWindow = self.mainWindow.fenetres["achats"]
+        achatWindow.actualiserData()
         
         
