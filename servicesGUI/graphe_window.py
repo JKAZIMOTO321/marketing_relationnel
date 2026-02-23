@@ -5,6 +5,7 @@ from .utilitaires import afficher_alerte
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
 class GraphePage(QWidget):
     def __init__(self):
@@ -31,6 +32,10 @@ class GraphePage(QWidget):
         self.zoom_factor = 1.0
         self.ui.btnZoomPlus.clicked.connect(self.zoom_plus)
         self.ui.btnZoomMoins.clicked.connect(self.zoom_moins)
+        # ajout du toolbar matplotlib
+
+        self.toolbar = NavigationToolbar(self.canvas, self)
+        layout.addWidget(self.toolbar)
 
     def charger_graphe(self):
         self.figure.clear()
@@ -105,37 +110,6 @@ class GraphePage(QWidget):
             font_color='red',
             font_size=10
         )
-        # ID centré
-        # id_labels = {node: str(node) for node in NetGraph.nodes()}
-
-        # nx.draw_networkx_labels(
-        #     NetGraph,
-        #     pos,
-        #     labels=id_labels,
-        #     ax=ax,
-        #     font_size=10,
-        #     font_weight='bold',
-        #     verticalalignment='center',
-        #     horizontalalignment='center'
-        # )
-
-        # # Nom légèrement en dessous
-        # name_pos = {k: (v[0], v[1] - 0.2) for k, v in pos.items()}
-        # name_labels = {
-        #     node: self.grapheService.clientService.recupererNom(node)
-        #     for node in NetGraph.nodes()
-        # }
-
-        # nx.draw_networkx_labels(
-        #     NetGraph,
-        #     name_pos,
-        #     labels=name_labels,
-        #     ax=ax,
-        #     font_size=8,
-        #     verticalalignment='top',
-        #     horizontalalignment='center'
-        # )
-        # Nettoyer les axes pour un look "pro"
         ax.set_axis_off()
         self.canvas.draw()
 
@@ -164,11 +138,10 @@ class GraphePage(QWidget):
         return pos
     
     def zoom_plus(self):
-
-        pass
+        self._zoom(0.8)
 
     def zoom_moins(self):
-        pass
+        self._zoom(1.2)
 
     def _zoom(self, scale):
         if not hasattr(self, "ax"):
