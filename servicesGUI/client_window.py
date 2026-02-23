@@ -66,6 +66,9 @@ class ClientPage(QWidget):
             if not ajout:
                 afficher_alerte(message="Echec de l'enregistrement")
             nettoyerLineEdit(self.elementsAdd)
+        # actualisation des donnees dans achatsWindow
+        achatWindow = self.mainWindow.fenetres["achats"]
+        achatWindow.actualiserData()
 
     def chargerParrainsComboBox(self, ComboBox):
         ComboBox.clear()

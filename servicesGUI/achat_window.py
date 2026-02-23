@@ -8,6 +8,7 @@ from .utilitaires import (ajusterColonnesDansTables,
                           afficher_information,
                           _create_item
                           )
+
 class AchatsPage(QWidget):
     def __init__(self):
         super().__init__()
@@ -22,6 +23,10 @@ class AchatsPage(QWidget):
 
     def chargerCB(self):
         chargerClientsDansComboBox(self.ui.comboBox_NomClient)
+
+    def actualiserData(self):
+        self.chargerCB()
+        self.chargerDonneesDansTable()
 
     def enregistrerAchat(self):
         try:
