@@ -137,6 +137,7 @@ class ClientPage(QWidget):
                 try:
                     id= int(self.ui.lineEdit_IdClient.text())
                     self.clientService.supprimerClient(idClient=id)
+                    afficher_information(message="Suppression reussie")
                 except Exception as e:
                     afficher_alerte(message=f"Echec de suppression : {e}")
         self.actualiserAchats()
