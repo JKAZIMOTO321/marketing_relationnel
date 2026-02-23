@@ -1,8 +1,10 @@
 from database.database_manager import DatabaseManager
+from .client_services import ClientsService
 import networkx as nx
 class GraphService:
     def __init__(self):
         self.db = DatabaseManager()
+        self.clientService = ClientsService()
     
     def charger_les_donnees(self):
         self.relations = self.db.get_relations()
