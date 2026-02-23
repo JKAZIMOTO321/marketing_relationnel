@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QScrollArea
 from gui.ui_grapheWindow import Ui_Form
 from services.graphes_service import GraphService
+from .utilitaires import afficher_alerte
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -27,6 +28,9 @@ class GraphePage(QWidget):
         self.canvas.setMinimumSize(1200, 900)
         self.ui.btnActualiser.clicked.connect(self.charger_graphe)
         self.charger_graphe()
+        self.zoom_factor = 1.0
+        self.ui.btnZoomPlus.clicked.connect(self.zoom_plus)
+        self.ui.btnZoomMoins.clicked.connect(self.zoom_moins)
 
     def charger_graphe(self):
         self.figure.clear()
@@ -35,17 +39,22 @@ class GraphePage(QWidget):
             return
 
         ax = self.figure.add_subplot(111)
+        self.ax = ax
         try:
-            # NetworkX >= 3.0 no longer supports the `args` parameter.
-            # Set Graphviz spacing through graph attributes instead.
-            layout_graph = NetGraph.copy()
-            layout_graph.graph["ranksep"] = "1.5"
-            layout_graph.graph["nodesep"] = "1"
-            pos = nx.nx_pydot.graphviz_layout(layout_graph, prog="dot")
+            # Trouver la racine (client qui n'a pas de parent)
+            roots = [n for n, d in NetGraph.in_degree() if d == 0]
+
+            if roots:
+                root = roots[0]
+            else:
+                root = list(NetGraph.nodes())[0]
+
+            pos = self.hierarchy_pos(NetGraph, root, width=10, vert_gap=2)
         except Exception:
             # Fallback if Graphviz/pydot is unavailable or layout fails.
-            pos = nx.spring_layout(NetGraph, seed=42)
-
+            # pos = nx.spring_layout(NetGraph, seed=42)
+            afficher_alerte("Erreur")
+        self.pos = pos
         labels = {}
         for node in NetGraph.nodes():
             nom = self.grapheService.clientService.recupererNom(node)
@@ -57,7 +66,7 @@ class GraphePage(QWidget):
             pos,
             ax=ax,
             node_color='#3498db', # Un bleu plus moderne
-            node_size=600,         # Taille réduite pour plus d'élégance
+            node_size=1200,         # Taille réduite pour plus d'élégance
             edgecolors='white',    # Bordure blanche pour détacher le nœud
             linewidths=2
         )
@@ -74,17 +83,15 @@ class GraphePage(QWidget):
         )
 
         # 3. POSITIONNER LES LABELS (Le nom des clients)
-        # On crée un décalage vers le haut pour que le texte ne soit pas SUR le nœud
-        label_pos = {k: [v[0], v[1] + 0.15] for k, v in pos.items()} 
-        
         nx.draw_networkx_labels(
             NetGraph,
-            label_pos,
+            pos,
             labels=labels,
             ax=ax,
-            font_size=10,
-            # font_weight='bold',
-            font_family='sans-serif'
+            font_size=9,
+            font_family='sans-serif',
+            verticalalignment='center',
+            horizontalalignment='center'
         )
 
         # 4. Afficher les poids (commissions) sur les arêtes
@@ -98,7 +105,66 @@ class GraphePage(QWidget):
             font_color='red',
             font_size=10
         )
+        # ID centré
+        # id_labels = {node: str(node) for node in NetGraph.nodes()}
 
+        # nx.draw_networkx_labels(
+        #     NetGraph,
+        #     pos,
+        #     labels=id_labels,
+        #     ax=ax,
+        #     font_size=10,
+        #     font_weight='bold',
+        #     verticalalignment='center',
+        #     horizontalalignment='center'
+        # )
+
+        # # Nom légèrement en dessous
+        # name_pos = {k: (v[0], v[1] - 0.2) for k, v in pos.items()}
+        # name_labels = {
+        #     node: self.grapheService.clientService.recupererNom(node)
+        #     for node in NetGraph.nodes()
+        # }
+
+        # nx.draw_networkx_labels(
+        #     NetGraph,
+        #     name_pos,
+        #     labels=name_labels,
+        #     ax=ax,
+        #     font_size=8,
+        #     verticalalignment='top',
+        #     horizontalalignment='center'
+        # )
         # Nettoyer les axes pour un look "pro"
         ax.set_axis_off()
         self.canvas.draw()
+
+    def hierarchy_pos(self,G, root, width=1., vert_gap=1., vert_loc=0, xcenter=0.5):
+        """
+        Positionnement hiérarchique pour graphe orienté (arbre)
+        """
+        pos = {root: (xcenter, vert_loc)}
+        children = list(G.successors(root))
+        
+        if len(children) != 0:
+            dx = width / len(children)
+            nextx = xcenter - width/2 - dx/2
+            for child in children:
+                nextx += dx
+                pos.update(
+                    self.hierarchy_pos(
+                        G,
+                        child,
+                        width=dx,
+                        vert_gap=vert_gap,
+                        vert_loc=vert_loc - vert_gap,
+                        xcenter=nextx
+                    )
+                )
+        return pos
+    
+    def zoom_plus(self):
+        pass
+
+    def zoom_moins(self):
+        pass
