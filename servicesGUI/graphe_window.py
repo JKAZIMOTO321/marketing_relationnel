@@ -171,3 +171,4 @@ class GraphePage(QWidget):
         self.ax.set_ylim([y_center - y_range / 2, y_center + y_range / 2])
 
         self.canvas.draw()
+
