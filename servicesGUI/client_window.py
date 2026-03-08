@@ -63,6 +63,7 @@ class ClientPage(QWidget):
             if ajout:
                 afficher_information(message="Ajout du client effectué avec succès")
                 self.chargerDonneesDansTable()
+                self.chargerParrainsComboBox(self.ui.comboBox_AddParrain)
             if not ajout:
                 afficher_alerte(message="Echec de l'enregistrement")
             nettoyerLineEdit(self.elementsAdd)
@@ -123,6 +124,7 @@ class ClientPage(QWidget):
             try:
                 action =self.clientService.modifierClient(id=id, ClientName=nom, Email=email, Phone=tel)
                 afficher_information(message="Succes")
+                self.chargerParrainsComboBox(self.ui.comboBox_AddParrain)
             except Exception as e:
                 afficher_alerte(message=f"Erreur : {e}")
         self.actualiserAchats()
@@ -138,6 +140,7 @@ class ClientPage(QWidget):
                     id= int(self.ui.lineEdit_IdClient.text())
                     self.clientService.supprimerClient(idClient=id)
                     afficher_information(message="Suppression reussie")
+                    self.chargerParrainsComboBox(self.ui.comboBox_AddParrain)
                 except Exception as e:
                     afficher_alerte(message=f"Echec de suppression : {e}")
         self.actualiserAchats()
